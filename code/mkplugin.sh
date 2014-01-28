@@ -83,7 +83,7 @@ public class $PLUGIN_NAME extends JavaPlugin {
 
         // ...and finish your code before this line.
         return true;
-        }
+      }
     }
     return false;
   }
