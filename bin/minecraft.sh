@@ -3,6 +3,9 @@ if [ "$1" != "check_env" ]; then
   echo "Usage: $0 check_env"
   exit 1
 fi
+
+SCRIPT='lib/check_environment.rb'
+JVM_HEAP_STACK_SETTINGS='-Xmx500m -Xss1024k'
 ACCEPTABLE_JAVA_VERSION=6
 JAVA_VERSION=`java -version 2>&1 | head -1 | awk -F '"' '{print $2}'`
 
@@ -21,11 +24,10 @@ fi
 if [ ! -d ~/.coderdojo ]; then
   mkdir ~/.coderdojo
 fi
-
 cd ~/.coderdojo
 if [ ! -f ~/.coderdojo/jruby-complete.jar ]; then
   wget http://jruby.org.s3.amazonaws.com/downloads/1.7.10/jruby-complete-1.7.10.jar
   mv jruby-complete-1.7.10.jar jruby-complete.jar
 fi
 
-java -Xmx500m -Xss1024k -jar ~/.coderdojo/jruby-complete.jar check_environment.rb
+java ${JVM_HEAP_STACK_SETTINGS} -jar ~/.coderdojo/jruby-complete.jar ${SCRIPT}
